@@ -14,8 +14,8 @@
         <tbody>
           <tr ng-repeat="row in grid">
             <td ng-repeat="card in row">
-              <img ng-show="{{card.open}}" src="{{card.url}}"/>
-              <img ng-hide="{{card.open}}" src="images/logo.png"/>
+              <img ng-show="card.open" ng-src="{{card.url}}"/> <!-- monster -->
+              <img ng-click="flip(card)" ng-hide="card.open" src="images/logo.png"/> <!-- logo -->
             </td>
           </tr>
         </tbody>
