@@ -8,14 +8,14 @@
     <script src="memory.js"></script>
   </head>
   <body>
-    <h1>hey</h1>
     <div ng-app="memory" ng-controller="MemoryController">
 
       <table>
         <tbody>
           <tr ng-repeat="row in grid">
             <td ng-repeat="card in row">
-              <img src="card.url"/>
+              <img ng-show="{{card.open}}" src="{{card.url}}"/>
+              <img ng-hide="{{card.open}}" src="images/logo.png"/>
             </td>
           </tr>
         </tbody>
