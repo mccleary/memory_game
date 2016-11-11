@@ -1,5 +1,5 @@
 var app = angular.module('memory', []);
-app.controller('MemoryController', function($scope) {
+app.controller('MemoryController', function($scope, $timeout) {
   var card1 = new Card("images/monsters-01.png", false, false);
   var card2 = new Card("images/monsters-02.png", false, false);
   var card3 = new Card("images/monsters-03.png", false, false);
@@ -25,7 +25,16 @@ app.controller('MemoryController', function($scope) {
       if (card.url === $scope.firstCard.url) {
         card.matched = true;
         $scope.firstCard.matched = true;
+        $scope.state = "first";
+      } else {
+        $scope.state = "first";
+        $timeout(function() {
+          card.open = false;
+          $scope.firstCard.open = false;
+        }, 500);
       }
+      console.log(checkWin($scope.grid));
+      // checkWin($scope.grid);
     }
 
   };
@@ -38,4 +47,15 @@ function Card(url, open, matched) {
   this.url = url;
   this.open = open;
   this.matched = matched;
+}
+
+
+
+function checkWin(grid) {
+  return grid.every(function(row) {
+    return row.every(function(card) {
+      return card.matched;
+    });
+  });
+
 }
