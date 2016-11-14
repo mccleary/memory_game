@@ -8,26 +8,40 @@ app.controller('MemoryController', function($scope, $timeout) {
       var num = $scope.random();
       if (monsters.indexOf(num) === -1) {
         monsters.push(num);
+        monsters.push(num);
+
       }
     }
   };
+
+  $scope.shuffle = function(arr) {
+    var i = 0;
+        j = 0;
+        temp = null;
+    for (i = arr.length - 1; i > 0; i -= 1)  {
+      j = Math.floor(Math.random() * (i + 1));
+      temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
+    }
+  };
+
 
   $scope.random = function() {
     return Math.floor(Math.random() * 16) + 1;
   };
   $scope.monsterGenerator();
+  $scope.shuffle($scope.monsters);
 
-  var card1 = new Card(monsters[0], false, false);
-  var card2 = new Card(monsters[0], false, false);
-  var card3 = new Card(monsters[1], false, false);
-  var card4 = new Card(monsters[1], false, false);
-  var card5 = new Card(monsters[2], false, false);
-  var card6 = new Card(monsters[2], false, false);
-  var card7 = new Card(monsters[3], false, false);
-  var card8 = new Card(monsters[3], false, false);
+  $scope.cards = [];
+
+  for (var i = 0; i < 8; i++) {
+    var random = Math.floor(Math.random() * 4);
+    $scope.cards[i] = new Card(monsters[random], false, false);
+  }
 
   $scope.grid = [
-    [card1, card2, card3, card4], [card5, card6, card7, card8]
+    [$scope.cards[0], $scope.cards[1], $scope.cards[2], $scope.cards[3]], [$scope.cards[4], $scope.cards[5], $scope.cards[6], $scope.cards[7]]
   ];
 
 
